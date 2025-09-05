@@ -98,6 +98,9 @@ export const addSong = asyncHandler(
     if (redisClient.isReady) {
       await redisClient.del("songs");
       console.log("songs cache cleared");
+
+      await redisClient.del(`album_songs_${album}`);
+      console.log(`album_songs_${album} cache cleared`);
     }
     res.status(201).json({
       message: "Song added successfully",
